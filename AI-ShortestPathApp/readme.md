@@ -6,34 +6,34 @@
 
 <b> Program </b>
 
-Methods:
+> Methods:
 - Main(): The entry of the program. We do the following steps here:
- - Initialize a instance of a class <i> Problem </i>, which abstracts the maze, reads condiguration from files, sets maze size and elements like the position of walls, agent and goals
- - Start the searching procedure by calling Search method of <i> Problem </i>  instance, and save the best solution into a file. 
+ - Initialize a instance of a class <i>Problem</i>, which abstracts the maze, reads condiguration from files, sets maze size and elements like the position of walls, agent and goals
+ - Start the searching procedure by calling Search method of <i>Problem</i>  instance, and save the best solution into a file. 
  - Render the solution of the shortest path.
 
 
 <b> State </b>
 
-Properties:
-- Coord: an integer tuple (int, int) representing the coordination of an instance of Statein the maze.
-- Heu: a decimal storing the heuristic value of an instance of State.
-- Parent: an instance of <i> State </i> linked the current instance to a parent node of a state.
+> Properties:
+- Coord: an integer tuple (int, int) representing the coordination of an instance of <i>State<i> in the maze.
+- Heu: a decimal storing the heuristic value of an instance of <i>State<i>.
+- Parent: an instance of <i>State</i> linked the current instance to a parent node of a state.
 
 <b> Problem </b>
 
-Properties:
+> Properties:
 - _mapSize: (int, int) -> (length along Y axis, length along X axis). (5, 11) means 5 rows and 11 columns when rendering.
 - _posAgent: (int, int)
 - _goals: (int, int)[]. A list of coordinates represented as integer tuples.
 - _walls: (int, int)[]. A list of coordinates represented as integer tuples.
 - __symbols: a dictionary representing symbols in the maze for rending.
-- queue: State[]. A queue of states. It stores the nodes which need to be explored.
-- visitedStates: State[]. A list of states. It stores the nodes which have been explored.
+- queue: State[]. A queue of <i>State</i>. It stores the nodes which need to be explored.
+- visitedStates: State[]. A list of <i>State</i>. It stores the nodes which have been explored.
 
-Methods:
+> Methods:
 - GetCandidates:
-- IsValid: validate if a state is valid in a maze, check if it is out of the boundary of the maze, and if the state conflicts with other elements like walls.
+- IsValid: validate if a <i>State</i> is valid in a maze, check if it is out of the boundary of the maze, and if the state conflicts with other elements like walls.
 - Search: start searching a solution, apply BFS, DFS, A*, etc. here.
 - GetPath: return a list of state by a given state, usually the last node of the path.
 - Render: render the maze with a given state.
