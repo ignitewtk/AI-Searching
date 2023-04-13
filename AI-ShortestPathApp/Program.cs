@@ -49,7 +49,7 @@ public class Problem
     private List<(int, int)> _goals = new List<(int, int)>();
     private List<(int, int)> _walls = new List<(int, int)>();
 
-    private Dictionary<string, string> symbols = new Dictionary<string, string>()
+    private Dictionary<string, string> _symbols = new Dictionary<string, string>()
     {
         {"wall", " #"},
         {"agent", " o"},
@@ -240,19 +240,19 @@ public class Problem
             {
                 if (_walls.Any(coord => coord.Item1 == x && coord.Item2 == y))
                 {
-                    Console.Write(symbols["wall"]);
+                    Console.Write(_symbols["wall"]);
                 } else if (agentCoord.Item1 == x && agentCoord.Item2 == y)
                 {
-                    Console.Write(symbols["agent"]);
+                    Console.Write(_symbols["agent"]);
                 } else if (_goals.Any(coord => coord.Item1 == x && coord.Item2 == y))
                 {
-                    Console.Write(symbols["goal"]);
+                    Console.Write(_symbols["goal"]);
                 } else if (visitedStates.Any(state => state.Coord.Item1 == x && state.Coord.Item2 == y))
                 {
-                    Console.Write(symbols["visited"]);
+                    Console.Write(_symbols["visited"]);
                 } else
                 {
-                    Console.Write(symbols["area"]);
+                    Console.Write(_symbols["area"]);
                 }
             }
             Console.WriteLine();
