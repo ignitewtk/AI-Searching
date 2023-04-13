@@ -6,7 +6,7 @@ The maze can be abstracted as a 2D array or a doubly linked list.
 If we use doubly linked list for the maze, the benefit is that it is straightforward, and 
 we can easily get nodes that it connects. The drawback is that we cannot visit a node by 
 using it coordinates, since you need to traverse the whole list 
-and do a bunch of IF statement to find the node you are looking for. And this way introduce complexity.
+and do a bunch of IF statements to find the node you are looking for. And this way introduce complexity.
 
 In this project, we adopt 2D array.
 
