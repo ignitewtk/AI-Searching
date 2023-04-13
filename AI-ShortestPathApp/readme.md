@@ -24,7 +24,7 @@ In this project, we adopt 2D array.
 
 
 <b> State </b>
-
+Using this class, we can easily extend our solution from BFS to heuristic-based methods, like A*.
 > Properties
 - Coord: an integer tuple (int, int) representing the coordination of an instance of <i>State<i> in the maze.
 - Heu: a decimal storing the heuristic value of an instance of <i>State<i>.
