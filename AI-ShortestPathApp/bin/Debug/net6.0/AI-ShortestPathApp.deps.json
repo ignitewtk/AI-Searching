@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "AI-ShortestPathApp/1.0.0": {
+        "runtime": {
+          "AI-ShortestPathApp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AI-ShortestPathApp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

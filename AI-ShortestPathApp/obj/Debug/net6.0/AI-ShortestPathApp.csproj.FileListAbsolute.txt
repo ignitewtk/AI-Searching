@@ -1,0 +1,15 @@
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\bin\Debug\net6.0\AI-ShortestPathApp.exe
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\bin\Debug\net6.0\AI-ShortestPathApp.deps.json
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\bin\Debug\net6.0\AI-ShortestPathApp.runtimeconfig.json
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\bin\Debug\net6.0\AI-ShortestPathApp.dll
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\bin\Debug\net6.0\AI-ShortestPathApp.pdb
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.csproj.AssemblyReference.cache
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.AssemblyInfoInputs.cache
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.AssemblyInfo.cs
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.csproj.CoreCompileInputs.cache
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.dll
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\refint\AI-ShortestPathApp.dll
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.pdb
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\AI-ShortestPathApp.genruntimeconfig.cache
+D:\Documents\Study\AI\CSharp\AI-ShortestPathApp\obj\Debug\net6.0\ref\AI-ShortestPathApp.dll
