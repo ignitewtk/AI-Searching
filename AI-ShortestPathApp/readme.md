@@ -54,6 +54,12 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 
 ## Project Structure
 
+<img src="/image/Init-maze01.png" alt="Alt text" title="Optional title">
+
+<img src="/image/Explore-maze01.png" alt="Alt text" title="Optional title">
+
+<img src="/image/Sol-maze01.png" alt="Alt text" title="Optional title">
+
 ![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Init-maze01.png?raw=true)
 ![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Explore-maze01.png?raw=true)
 ![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Sol-maze01.png?raw=true)
