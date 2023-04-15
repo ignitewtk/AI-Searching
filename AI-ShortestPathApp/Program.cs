@@ -15,10 +15,13 @@ class Program
     {
         string[] problemFiles = Directory.GetFiles(args[0]);
         string[] SolutionFiles = Directory.GetFiles(args[1]);
-
+        foreach (var f in problemFiles)
+        {
+            Console.WriteLine(f);
+        }
         foreach (var filenames in problemFiles.Zip(SolutionFiles, (p, s) => new { PathProblem = p, PathSolution = s }))
         {
-            Console.WriteLine(filenames.PathProblem);
+            Console.WriteLine(filenames.PathProblem, filenames.PathSolution);
             Problem problem = new Problem(filenames.PathProblem, filenames.PathSolution);
             problem.Search("A*");
         }
