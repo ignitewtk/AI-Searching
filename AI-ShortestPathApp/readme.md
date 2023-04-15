@@ -56,9 +56,9 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 
 <img src="image/Init-maze01.png" alt="Alt text" title="Optional title">
 
-<img src="/mage/Explore-maze01.png" alt="Alt text" title="Optional title">
+<img src="mage/Explore-maze01.png" alt="Alt text" title="Optional title">
 
-<img src="/mage/Sol-maze01.png" alt="Alt text" title="Optional title">
+<img src="mage/Sol-maze01.png" alt="Alt text" title="Optional title">
 
 ![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Init-maze01.png?raw=true)
 ![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Explore-maze01.png?raw=true)
