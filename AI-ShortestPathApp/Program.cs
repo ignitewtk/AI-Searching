@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.Drawing;
+using System.Collections;
 
 class Program
 {
@@ -71,6 +72,7 @@ public class Problem
     };
     
     Queue<State> queue = new Queue<State>();
+    PriorityQueue<State, decimal> pqueue = new PriorityQueue<State, decimal>();
     List<State> visitedStates = new List<State>();
     List<State> path = new List<State>();
 
@@ -236,12 +238,11 @@ public class Problem
     {
         Console.WriteLine("A* is running...");
         // Add the initial state into queue
-        queue.Enqueue(new State(PosAgent, GetHeu(PosAgent), null));
-        while (queue.Count > 0)
+        pqueue.Enqueue(new State(PosAgent, GetHeu(PosAgent), null), GetHeu(PosAgent));
+        while (pqueue.Count > 0)
         {
-            State currentState = queue.Dequeue();
+            State currentState = pqueue.Dequeue();
             visitedStates.Add(currentState);
-            // Console.WriteLine(currentState.Coord);
             if (_goals.Contains(currentState.Coord))
             {
                 // Reach to a goal
@@ -265,8 +266,7 @@ public class Problem
 
                     // Apply cost method and pick the best one
                     // Check if the new state has been explored
-                    if (!(queue.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2) ||
-                        visitedStates.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2)))
+                    if (!visitedStates.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2))
                     {
                         // Not explore yet
                         //if (minCost >= t.Heu) {
@@ -277,10 +277,9 @@ public class Problem
                 }
                 foreach (State bestCandiadate in bestCandiadates)
                 {
-                    queue.Enqueue(bestCandiadate);
+                    pqueue.Enqueue(bestCandiadate, bestCandiadate.Heu);
                 }
                 // Dequeue a new state as current state, here can apply a heuristic strategy, call the cost() method.
-                // Console.WriteLine(String.Format("Queue nodes: {0}\tVisited nodes: {1}", queue.Count, visitedStates.Count));
                 Console.WriteLine();
                 // Render(currentState.Coord, null);
                 // Thread.Sleep(1);
