@@ -54,9 +54,15 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 
 ## Project Structure
 
+Initialize the maze.
+
 <img src="image/Init-maze01.png" alt="Alt text" title="Optional title">
 
+Exploring the maze.
+
 <img src="image/Explore-maze01.png" alt="Alt text" title="Optional title">
+
+Find out the solution.
 
 <img src="image/Sol-maze01.png" alt="Alt text" title="Optional title">
 
