@@ -6,22 +6,25 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
+using System.Drawing;
 
 class Program
 {
      static void Main(string[] args)
     {
-        Console.WriteLine(args[2]);
-        Problem problem = new Problem(args[0], args[1]);
-        problem.Search();
-       
-        // problem.Render(problem.PosAgent);
-       
-        return;
+        string[] problemFiles = Directory.GetFiles(args[0]);
+        string[] SolutionFiles = Directory.GetFiles(args[1]);
+
+        foreach (var filenames in problemFiles.Zip(SolutionFiles, (p, s) => new { PathProblem = p, PathSolution = s }))
+        {
+            Console.WriteLine(filenames.PathProblem);
+            Problem problem = new Problem(filenames.PathProblem, filenames.PathSolution);
+            problem.Search("A*");
+        }
     }
 }
 
-public class State
+public class State: IComparable<State>
 {
     public (int, int) Coord = (0, 0);
     public decimal Heu = 0;
@@ -32,6 +35,15 @@ public class State
         Coord = coord;
         Heu = heu;
         Parent = parent;
+    }
+
+    public int CompareTo(State? other)
+    {
+        if (other == null)
+        {
+            return 1;
+        }
+        return this.Heu.CompareTo(other.Heu);
     }
 }
 
@@ -46,10 +58,10 @@ public class Problem
         set => _posAgent = value;
     }
 
-    private List<(int, int)> _goals = new List<(int, int)>();
-    private List<(int, int)> _walls = new List<(int, int)>();
+    private readonly List<(int, int)> _goals = new List<(int, int)>();
+    private readonly List<(int, int)> _walls = new List<(int, int)>();
 
-    private Dictionary<string, string> _symbols = new Dictionary<string, string>()
+    private readonly Dictionary<string, string> _symbols = new Dictionary<string, string>()
     {
         {"wall", " #"},
         {"agent", " o"},
@@ -60,6 +72,7 @@ public class Problem
     
     Queue<State> queue = new Queue<State>();
     List<State> visitedStates = new List<State>();
+    List<State> path = new List<State>();
 
 
     // Constructor
@@ -80,17 +93,13 @@ public class Problem
             string[] subs = line.Split(',');
             MatchCollection matches = rx.Matches(line);
             _mapSize = (Int32.Parse(matches[0].Value), Int32.Parse(matches[1].Value));
-            // Console.WriteLine(String.Format("Map Size:\t ({0}, {1})", _mapSize.Item1, _mapSize.Item2));
 
             // Get coordinates of the agent
             line = sr.ReadLine();
             subs = line.Split(',');
             matches = rx.Matches(line);
             _posAgent = (Int32.Parse(matches[0].Value), Int32.Parse(matches[1].Value));
-            // Add the initial state into queue
-            queue.Enqueue(new State(PosAgent, 0, null));
-            // Console.WriteLine(String.Format("Position of Agent:\t ({0}, {1})", PosAgent.Item1, PosAgent.Item2));
-
+            
             // Get coordinates of goals
             line = sr.ReadLine();
             string[] strGoals = line.Split('|');
@@ -120,6 +129,7 @@ public class Problem
                 }
                 line = sr.ReadLine();
             }
+            Render(PosAgent);
         } catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
@@ -128,26 +138,21 @@ public class Problem
             Console.WriteLine("Final");
         }
     }
-
-    public List<State> GetCandidates(State state)
+    public decimal GetHeu((int, int) current)
     {
-        List<State> tmp = new List<State>
+        decimal minHeu = Decimal.MaxValue;
+        foreach ((int, int) goal in _goals)
         {
-            new State((state.Coord.Item1, state.Coord.Item2 - 1), 0, state),
-            new State((state.Coord.Item1 + 1, state.Coord.Item2), 0, state),
-            new State((state.Coord.Item1, state.Coord.Item2 + 1), 0, state),
-            new State((state.Coord.Item1 - 1, state.Coord.Item2), 0, state)
-        };
-        List<State> candidates = new List<State>();
-        foreach (State t in tmp)
-        {
-            if (IsValid(t))
+            // Manhatten
+            decimal cost = Math.Abs(current.Item1 - goal.Item1) + Math.Abs(current.Item2 - goal.Item2);
+            if (cost < minHeu)
             {
-                candidates.Add(t);
+                minHeu = cost;
             }
         }
-        return candidates;
+        return minHeu;
     }
+
 
     public bool IsValid(State state)
     {
@@ -162,9 +167,76 @@ public class Problem
         return true;
     }
 
-
-    public void Search()
+    public List<State> GetCandidates(State state)
     {
+        List<State> tmp = new List<State>
+        {
+            new State((state.Coord.Item1, state.Coord.Item2 - 1), GetHeu((state.Coord.Item1, state.Coord.Item2 - 1)), state),
+            new State((state.Coord.Item1 + 1, state.Coord.Item2), GetHeu((state.Coord.Item1 + 1, state.Coord.Item2)), state),
+            new State((state.Coord.Item1, state.Coord.Item2 + 1), GetHeu((state.Coord.Item1, state.Coord.Item2 + 1)), state),
+            new State((state.Coord.Item1 - 1, state.Coord.Item2), GetHeu((state.Coord.Item1 - 1, state.Coord.Item2)), state)
+        };
+        List<State> candidates = new List<State>();
+        foreach (State t in tmp)
+        {
+            if (IsValid(t))
+            {
+                candidates.Add(t);
+            }
+        }
+
+        return candidates;
+    }
+
+    public void BFS()
+    {
+        Console.WriteLine("BFS is running...");
+        // Add the initial state into queue
+        queue.Enqueue(new State(PosAgent, 0, null));
+        while (queue.Count > 0)
+        {
+            State currentState = queue.Dequeue();
+            visitedStates.Add(currentState);
+            if (_goals.Contains(currentState.Coord))
+            {
+                // Reach to a goal
+                Console.WriteLine("Winner Winner, Chicken Dinner!");
+                GetPath(currentState);
+                break;
+                // To be done: Use the latest states and trace back for the path.
+
+                // Call the render method to visualize the solution.
+
+                // Parse the solution, and output to a text file.
+            }
+            else
+            {
+                // Get candidates of the current state, push them into queue.
+                List<State> candidates = GetCandidates(currentState);
+                foreach (State t in candidates)
+                {
+
+                    // Apply cost method and pick the best one
+                    // Check if the new state has been explored
+                    if (!(queue.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2) ||
+                        visitedStates.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2)))
+                    {
+                        queue.Enqueue(t);
+                    }
+                }
+                // Dequeue a new state as current state, here can apply a heuristic strategy, call the cost() method.
+                Console.WriteLine(String.Format("Queue nodes: {0}\tVisited nodes: {1}", queue.Count, visitedStates.Count));
+                // Render(currentState.Coord, null);
+                // Thread.Sleep(1);
+            }
+        }
+    }
+
+    public void AStar()
+    {
+        Console.WriteLine("A* is running...");
+        // Add the initial state into queue
+        queue.Enqueue(new State(PosAgent, GetHeu(PosAgent), null));
         while (queue.Count > 0)
         {
             State currentState = queue.Dequeue();
@@ -181,56 +253,69 @@ public class Problem
                 // Call the render method to visualize the solution.
 
                 // Parse the solution, and output to a text file.
-            } else
+            }
+            else
             {
                 // Get candidates of the current state, push them into queue.
                 List<State> candidates = GetCandidates(currentState);
+                decimal minCost = Decimal.MaxValue;
+                List<State> bestCandiadates = new List<State>();
                 foreach (State t in candidates)
                 {
-                    
+
                     // Apply cost method and pick the best one
                     // Check if the new state has been explored
-                    if (queue.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2) || 
-                        visitedStates.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2))
+                    if (!(queue.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2) ||
+                        visitedStates.Any(s => s.Coord.Item1 == t.Coord.Item1 && s.Coord.Item2 == t.Coord.Item2)))
                     {
-
-                    } else
-                    {
-                        queue.Enqueue(t);
+                        // Not explore yet
+                        //if (minCost >= t.Heu) {
+                        bestCandiadates.Add(t);
+                        //    minCost = t.Heu;
+                        //}
                     }
                 }
-                // Dequeue a new state as current state, here can apply a heuristic strategy, call the cost() method.
-                Console.WriteLine(String.Format("{0}, {1}", queue.Count, visitedStates.Count));
-                foreach (State t in queue)
+                foreach (State bestCandiadate in bestCandiadates)
                 {
-                    Console.Write(String.Format("{0}, ", t.Coord));
+                    queue.Enqueue(bestCandiadate);
                 }
+                // Dequeue a new state as current state, here can apply a heuristic strategy, call the cost() method.
+                // Console.WriteLine(String.Format("Queue nodes: {0}\tVisited nodes: {1}", queue.Count, visitedStates.Count));
                 Console.WriteLine();
-                // Render(currentState.Coord);
+                // Render(currentState.Coord, null);
                 // Thread.Sleep(1);
-
             }
+            Render(PosAgent);
         }
-        
+    }
 
-        Console.WriteLine(queue.Count);
+    public void Search(String method)
+    {
+        switch (method)
+        {
+            case "bfs":
+                BFS();
+                break;
+            case "A*":
+                AStar();
+                break;
+            default:
+                Console.WriteLine("{0} did not match any methods.", method);
+                break;
+        }
     }
     public void GetPath(State finalState)
     {
-        State tmp = finalState;
-        Stack<(int, int)> path = new Stack<(int, int)> ();
-        while (tmp.Parent != null)
+        State? tmp = finalState;
+        // Stack<(int, int)> path = new Stack<(int, int)> ();
+        while (tmp != null)
         {
-            path.Push(tmp.Coord);
+            path.Add(tmp);
             tmp = tmp.Parent;
         }
-        Console.WriteLine(String.Format("The legnth of the path is: {0}.", path.Count));
-        while (path.Count > 0)
-        {
-            (int, int) coord = path.Pop();
-            Render(coord);
-            Console.WriteLine("===============");
-        }
+        Console.WriteLine(String.Format("The legnth of the path is: {0}.", path.Count - 1));
+        path.Reverse();
+        Render(PosAgent);
     }
     public void Render((int, int) agentCoord)
     {
@@ -244,7 +329,12 @@ public class Problem
                 } else if (agentCoord.Item1 == x && agentCoord.Item2 == y)
                 {
                     Console.Write(_symbols["agent"]);
-                } else if (_goals.Any(coord => coord.Item1 == x && coord.Item2 == y))
+
+                } else if (path.Any(state => state.Coord.Item1 == x && state.Coord.Item2 == y))
+                {
+                    Console.Write(_symbols["agent"]);
+                }
+                else if (_goals.Any(coord => coord.Item1 == x && coord.Item2 == y))
                 {
                     Console.Write(_symbols["goal"]);
                 } else if (visitedStates.Any(state => state.Coord.Item1 == x && state.Coord.Item2 == y))
@@ -257,7 +347,7 @@ public class Problem
             }
             Console.WriteLine();
         }
-
+        Console.WriteLine();
     }
 }
 
