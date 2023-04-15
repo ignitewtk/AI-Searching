@@ -48,4 +48,13 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 - Search: start searching a solution, apply BFS, DFS, A*, etc. here.
 - GetPath: return a list of state by a given state, usually the last node of the path.
 - Render: render the maze with a given state.
+- BFS:
+- AStar:
+
+
+## Project Structure
+
+![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Init-maze01.png?raw=true)
+![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Explore-maze01.png?raw=true)
+![alt text](https://github.com/ignitewtk/AI-Searching/tree/master/image/Sol-maze01.png?raw=true)
 
