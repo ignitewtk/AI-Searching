@@ -55,11 +55,11 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 
 ## How to use
 
-Configure your command line arguments, the first one is the directory path of you problem resources, 
+Configure your command line arguments, the first one is the directory path of your problem resources, 
 while the second one is your solution resources, and the thrid one is the searching algorithm you use. For example:
-.\\problems 
-.\\solutions
-A*    
+
+.\\problems .\\solutions A*   
+
 Note: (bfs, dfs, A*; CAPITAL SENSITIVE)
 
 ## Project Result
