@@ -2,7 +2,7 @@
   "profiles": {
     "AI-ShortestPathApp": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\\\Documents\\\\Study\\\\AI\\\\CSharp\\\\AI-ShortestPathApp\\\\problems D:\\\\Documents\\\\Study\\\\AI\\\\CSharp\\\\AI-ShortestPathApp\\\\solutions"
+      "commandLineArgs": "D:\\\\Documents\\\\Study\\\\AI\\\\CSharp\\\\AI-ShortestPathApp\\\\problems D:\\\\Documents\\\\Study\\\\AI\\\\CSharp\\\\AI-ShortestPathApp\\\\solutions A*"
     }
   }
 }

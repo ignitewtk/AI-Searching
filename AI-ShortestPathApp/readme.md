@@ -43,6 +43,7 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 - visitedStates: State[]. A list of <i>State</i>. It stores the nodes which have been explored.
 
 > Methods
+- GetHeu:
 - GetCandidates: return a list of valid candidate states. Check validation of states here.
 - IsValid: validate if a <i>State</i> is valid in a maze, check if it is out of the boundary of the maze, and if the state conflicts with other elements like walls.
 - Search: start searching a solution, apply BFS, DFS, A*, etc. here.
@@ -52,7 +53,16 @@ Using this class, we can easily extend our solution from BFS to heuristic-based 
 - AStar:
 
 
-## Project Structure
+## How to use
+
+Configure your command line arguments, the first one is the directory path of you problem resources, 
+while the second one is your solution resources, and the thrid one is the searching algorithm you use. For example:
+.\\problems 
+.\\solutions
+A*    
+Note: (bfs, dfs, A*; CAPITAL SENSITIVE)
+
+## Project Result
 
 Initialize the maze.
 

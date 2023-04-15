@@ -23,7 +23,7 @@ class Program
         {
             Console.WriteLine(filenames.PathProblem, filenames.PathSolution);
             Problem problem = new Problem(filenames.PathProblem, filenames.PathSolution);
-            problem.Search("A*");
+            problem.Search(args[2]);
         }
     }
 }
