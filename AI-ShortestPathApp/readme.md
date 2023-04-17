@@ -72,7 +72,13 @@ Exploring the maze.
 
 <img src="image/Explore-maze01.png" alt="Alt text" title="Optional title">
 
-Find out the solution.
+Find out the solution (Bread First Search).
 
-<img src="image/Sol-maze01.png" alt="Alt text" title="Optional title">
+<img src="image/BFS-Sol-maze01.png" alt="Alt text" title="Optional title">
+
+Find out the solution (A*).
+
+<img src="image/AStar-Sol-maze01.png" alt="Alt text" title="Optional title">
+
+
 

@@ -315,7 +315,7 @@ public class Problem
             path.Add(tmp);
             tmp = tmp.Parent;
         }
-        Console.WriteLine(String.Format("The legnth of the path is: {0}.", path.Count - 1));
+        Console.WriteLine(String.Format("The length of the path is: {0}.", path.Count - 1));
         path.Reverse();
         Render(PosAgent);
     }
