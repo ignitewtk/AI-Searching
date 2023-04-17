@@ -59,6 +59,7 @@ Configure your command line arguments, the first one is the directory path of yo
 while the second one is your solution resources, and the thrid one is the searching algorithm you use. For example:
 
 .\\problems .\\solutions A*   
+.\\problems .\\solutions BFS
 
 Note: (bfs, dfs, A*; CAPITAL SENSITIVE)
 
