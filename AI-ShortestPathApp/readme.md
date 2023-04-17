@@ -72,7 +72,7 @@ Exploring the maze.
 
 <img src="image/Explore-maze01.png" alt="Alt text" title="Optional title">
 
-Find out the solution (Bread First Search).
+Find out the solution (BFS - Breadth-first Search).
 
 <img src="image/BFS-Sol-maze01.png" alt="Alt text" title="Optional title">
 
